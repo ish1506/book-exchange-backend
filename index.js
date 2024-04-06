@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
 import booksRouter from "./src/routes/booksRouter.js";
+import usersRouter from "./src/routes/usersRouter.js";
 
 dotenv.config();
 
@@ -27,6 +28,7 @@ mongoose.connect(databaseUrl + "BookExchange", {
 });
 
 app.use("/books", booksRouter);
+app.use("/users", usersRouter);
 
 app.listen(port, () => {
   console.log(`App listening at http://localhost:${port}`);
