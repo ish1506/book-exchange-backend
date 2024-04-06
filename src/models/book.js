@@ -13,6 +13,11 @@ const bookSchema = new Schema({
     type: String,
     required: false,
   },
+  ownerId: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
 });
 
 const Book = model("Book", bookSchema);
