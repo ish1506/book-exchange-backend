@@ -1,4 +1,5 @@
 import User from "../models/user.js";
+import bcrypt from "bcrypt";
 
 export default class UserController {
   static async loginUser(req, res) {
@@ -7,7 +8,7 @@ export default class UserController {
       if (user === null) {
         return res.status(404).send("User not found");
       }
-      if (user.passwordHash != req.body?.password) {
+      if (!(await bcrypt.compare(req.body.password, user.passwordHash))) {
         return res.status(401).send("Wrong password");
       }
       return res.sendStatus(204);
@@ -37,12 +38,13 @@ export default class UserController {
       return res.status(500).send(error.message);
     }
   }
+
   static async createUser(req, res) {
     try {
+      const hashedPassword = await bcrypt.hash(req.body.password, 10);
       const userSchema = {
         username: req.body?.username,
-        // TODO: Implement password hashing
-        passwordHash: req.body?.password,
+        passwordHash: hashedPassword,
       };
       const user = await User.create(userSchema);
       return res.status(201).json(user.id);
