@@ -11,7 +11,7 @@ export default class UserController {
       if (!(await bcrypt.compare(req.body.password, user.passwordHash))) {
         return res.status(401).send("Wrong password");
       }
-      return res.sendStatus(204);
+      return res.status(200).json(user.id);
     } catch (error) {
       console.log(error.message);
       return res.status(500).send(error.message);

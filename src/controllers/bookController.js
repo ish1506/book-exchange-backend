@@ -13,9 +13,19 @@ export default class BookController {
     }
   }
 
-  static async getAllBooks(req, res) {
+  static async getBooks(req, res) {
     try {
-      const books = await Book.find();
+      let conditions = {};
+      if (req.query.title) {
+        conditions.title = new RegExp(req.query.title, "i");
+      }
+      if (req.query.author) {
+        conditions.author = new RegExp(req.query.author, "i");
+      }
+      if (req.query.genre) {
+        conditions.genre = new RegExp(req.query.genre, "i");
+      }
+      const books = await Book.find(conditions);
       res.json(books);
     } catch (error) {
       res.status(500).send(error.message);

@@ -1,24 +1,27 @@
 import { Schema, model } from "mongoose";
 
-const bookSchema = new Schema({
-  title: {
-    type: String,
-    required: true,
+const bookSchema = new Schema(
+  {
+    title: {
+      type: String,
+      required: true,
+    },
+    author: {
+      type: String,
+      required: true,
+    },
+    genre: {
+      type: String,
+      required: false,
+    },
+    ownerId: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
   },
-  author: {
-    type: String,
-    required: true,
-  },
-  genre: {
-    type: String,
-    required: false,
-  },
-  ownerId: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-  },
-});
+  { timestamps: true } // createdAt, updatedAt fields
+);
 
 const Book = model("Book", bookSchema);
 

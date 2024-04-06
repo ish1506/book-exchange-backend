@@ -4,7 +4,7 @@ import bookController from "../controllers/bookController.js";
 const router = Router();
 
 router.get("/:id", bookController.getBookById);
-router.get("", bookController.getAllBooks);
+router.get("", bookController.getBooks);
 
 router.post("", bookController.createBook);
 router.put("/:id", bookController.updateBookById);
