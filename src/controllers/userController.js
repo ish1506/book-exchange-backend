@@ -1,5 +1,5 @@
-import User from "../models/user.js";
 import bcrypt from "bcrypt";
+import User from "../models/user.js";
 
 export default class UserController {
   static async loginUser(req, res) {
